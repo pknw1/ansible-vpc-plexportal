@@ -1,0 +1,3 @@
+- name: install base packages
+  include: linux.yml
+

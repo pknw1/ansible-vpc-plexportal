@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Exec=/usr/local/bin/emacs --daemon
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+Name[en_AU]=Emacs
+Name=Emacs
+Comment[en_AU]=Emacs in space!
+Comment=Emacs in space!

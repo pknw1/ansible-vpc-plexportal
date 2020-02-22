@@ -1,0 +1,4 @@
+- name: install prerequisites for tiny_tds gem
+  apt:
+    name: freetds-dev
+  become: yes

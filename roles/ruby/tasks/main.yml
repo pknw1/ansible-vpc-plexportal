@@ -1,0 +1,11 @@
+- name: add rvm repo
+  become: yes
+  apt_repository:
+    repo: 'ppa:rael-gc/rvm'
+    state: present
+
+- name: install rvm
+  become: yes
+  apt:
+    name: rvm
+    state: present

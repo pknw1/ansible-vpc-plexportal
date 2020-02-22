@@ -1,0 +1,19 @@
+- hosts: all
+  roles:
+    - openvpn-as
+    - base
+    - python
+    - azure
+    - users
+    - rclone
+    - plexmediaserver
+    - webmin
+    - shell
+    - chrome
+    - slack
+    - graphics
+    - openjdk
+    - video
+    - herokucli
+    - aws
+    - rclone-mounts

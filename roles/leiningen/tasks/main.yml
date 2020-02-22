@@ -1,0 +1,6 @@
+- name: copy install script
+  become: yes
+  copy:
+    src: lein
+    dest: /usr/local/bin/lein
+    mode: 0755

@@ -1,0 +1,4 @@
+- name: install
+  apt:
+    name: phantomjs
+  become: yes

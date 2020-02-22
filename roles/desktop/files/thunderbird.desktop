@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Exec=/usr/bin/thunderbird
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=false
+Name[en_AU]=Thunderbird
+Name=Thunderbird
+Comment[en_AU]=
+Comment=

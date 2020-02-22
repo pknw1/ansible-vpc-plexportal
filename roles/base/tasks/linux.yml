@@ -1,0 +1,44 @@
+- name: install base packages
+  apt:
+    name:
+      - bash-completion
+      - vim
+      - git
+      - git-core
+      - git-email
+      - git-extras
+      - curl
+      - jq
+      - wget
+      - htop
+      - ack-grep
+      - silversearcher-ag
+      - terminator
+      - unzip
+      - tar
+      - gzip
+      - bzip2
+      - build-essential
+      - gcc
+      - g++
+      - gnome-tweak-tool
+      - xrdp
+      - xfce4
+      - xfce4-goodies
+      - xsel
+      - tmux
+    state: present
+    update_cache: yes
+  become: yes
+
+- name: remap keys
+  become: yes
+  copy:
+    src: keyboard
+    dest: /etc/default/keyboard
+
+- name: clean xrdp
+  become: yes
+  copy:
+    src: xrdp.ini
+    dest: /etc/xrdp/xrdp.ini

@@ -1,0 +1,67 @@
+- name: install zsh
+  become: true
+  apt:
+    name: zsh
+    state: present
+  when: ansible_os_family == "Debian"
+
+- name: install oh-my-zsh
+  git: 
+     repo: https://github.com/robbyrussell/oh-my-zsh.git
+     dest: ~/.oh-my-zsh
+     update: no
+
+- name: install powerlevel9k theme for oh-my-zsh
+  git:
+    repo: https://github.com/bhilburn/powerlevel9k.git
+    dest: ~/.oh-my-zsh/custom/themes/powerlevel9k
+
+- name: install zsh-syntax-highlighting
+  git:
+    repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
+    dest: ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+
+- name: get powerline fonts
+  become: yes
+  get_url: 
+    url: https://github.com/powerline/powerline/raw/develop/font/PowerlineSymbols.otf
+    dest: /usr/share/fonts/X11/misc/PowerlineSymbols.otf
+  when: ansible_os_family == "Debian"
+
+- name: setup fontconfig dirs
+  file:
+    path: "{{ item }}"
+    state: directory
+  with_items:
+    - ~/.config/fontconfig
+    - ~/.config/fontconfig/conf.d
+  when: ansible_os_family == "Debian"
+
+- name: get powerline font config
+  get_url: 
+    url: https://github.com/powerline/powerline/raw/develop/font/10-powerline-symbols.conf
+    dest: ~/.config/fontconfig/conf.d/10-powerline-symbols.conf
+  when: ansible_os_family == "Debian"
+
+- name: update font cache
+  become: yes
+  shell: fc-cache -vf /usr/share/fonts/X11/misc
+  when: ansible_os_family == "Debian"
+
+- name: get the current user
+  local_action: command whoami
+  register: current_user
+
+- name: set zsh as default shell
+  become: yes
+  user:
+    name: "{{ current_user['stdout'] }}"
+    shell: /usr/bin/zsh
+  when: ansible_os_family == "Debian"
+
+- name: set zsh as default shell
+  become: yes
+  user:
+    name: "{{ current_user['stdout'] }}"
+    shell: /usr/bin/zsh
+  when: ansible_os_family == "Darwin"

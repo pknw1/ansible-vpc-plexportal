@@ -1,0 +1,19 @@
+- name: copy install script
+  become: yes
+  copy:
+    src: rclone-mount.service
+    dest: /etc/systemd/system/rclone.service
+    mode: 0755
+
+- name: create config dir
+  file:
+    path: /config
+    state: directory
+    mode: 0777
+    
+- name: copy conf
+  become: yes
+  copy:
+    src: rclone.conf
+    dest: /config/rclone.conf
+    mode: 0755

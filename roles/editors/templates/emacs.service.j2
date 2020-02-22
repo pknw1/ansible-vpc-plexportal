@@ -1,0 +1,16 @@
+[Unit]
+Description=The emacs daemon
+After=multi.user.target
+
+[Service]
+Type=forking
+ExecStart=/usr/local/bin/emacs --daemon
+TimeoutStartSec=0
+ExecStop=/usr/local/bin/emacsclient --eval "(kill-emacs)"
+Environment=SSH_AUTH_SOCK=%t/keyring/ssh
+Restart=always
+RestartSec=120
+User={{ current_user['stdout'] }}
+
+[Install]
+WantedBy=multi.user.target

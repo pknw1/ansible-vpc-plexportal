@@ -1,0 +1,45 @@
+- name: add key
+  become: yes
+  apt_key:
+    url: 'https://download.docker.com/linux/ubuntu/gpg'
+    state: present
+
+- name: add repo
+  become: yes
+  apt_repository:
+    repo: 'deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable'
+    state: present
+
+- name: install docker
+  become: yes
+  apt:
+    name: docker-ce
+    state: present
+    update_cache: yes
+  register: apt_res
+  retries: 5
+  until: apt_res is success
+
+- name: install docker-compose
+  become: yes
+  copy:
+    src: docker-compose
+    dest: /usr/local/bin/docker-compose
+    mode: 0755
+
+- name: add docker group
+  become: yes
+  group:
+    name: docker
+    state: present
+
+- name: get the current user
+  local_action: command whoami
+  register: current_user
+
+- name: add current user to docker group
+  become: yes
+  user:
+    name: "{{ current_user['stdout'] }}"
+    groups: docker
+    append: yes

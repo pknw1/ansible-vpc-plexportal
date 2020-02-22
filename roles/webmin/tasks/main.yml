@@ -1,0 +1,21 @@
+- name: add key
+  become: yes
+  apt_key:
+    url: 'https://download.webmin.com/jcameron-key.asc'
+    state: present
+
+- name: add repo
+  become: yes
+  apt_repository:
+    repo: 'deb [arch=amd64] https://download.webmin.com/download/repository sarge contrib'
+    state: present
+
+- name: install webmin
+  become: yes
+  apt:
+    name: webmin
+    state: present
+    update_cache: yes
+  register: apt_res
+  retries: 5
+  until: apt_res is success

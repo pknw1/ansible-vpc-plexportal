@@ -1,0 +1,9 @@
+- name: download package
+  get_url:
+    url: https://downloads.slack-edge.com/linux_releases/slack-desktop-2.3.4-amd64.deb 
+    dest: /tmp/slack-desktop-2.3.4-amd64.deb
+
+- name: install
+  become: yes
+  apt:
+    deb: /tmp/slack-desktop-2.3.4-amd64.deb

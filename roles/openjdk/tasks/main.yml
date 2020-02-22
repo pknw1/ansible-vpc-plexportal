@@ -1,0 +1,4 @@
+- name: install openjdk-8
+  become: yes
+  apt:
+    name: openjdk-8-jdk

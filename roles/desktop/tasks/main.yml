@@ -1,0 +1,12 @@
+- include: startup_apps.yml
+
+- name: install sysctl.conf
+  become: yes
+  copy:
+    src: etc/sysctl.conf
+    dest: /etc/sysctl.conf
+
+- name: update sysctl
+  become: yes
+  shell: sysctl -p /etc/sysctl.conf
+

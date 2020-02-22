@@ -1,0 +1,18 @@
+- name: base packages
+  apt:
+    name:
+      - python
+      - python-pip
+      - python3-pip
+    state: present
+  become: true
+
+- name: python virtualenv
+  pip:
+    name: virtualenv
+
+- name: pipenv
+  pip:
+    name: pipenv
+    extra_args: '--user'
+

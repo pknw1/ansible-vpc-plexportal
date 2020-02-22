@@ -1,0 +1,33 @@
+- name: copy install script
+  become: yes
+  copy:
+    src: install.sh
+    dest: /tmp/install.sh
+    mode: 0755
+
+- name: install build prerequisites
+  become: true
+  apt:
+    name: emacs24
+    state: build-dep
+    update_cache: yes
+  register: apt_res
+  retries: 5
+  until: apt_res is success
+
+- name: install version 26.1
+  become: yes
+  command: /tmp/install.sh
+  args:
+    creates: /usr/local/bin/emacs
+
+- name: install spacemacs
+  git:
+    repo: https://github.com/syl20bnr/spacemacs
+    dest: ~/.emacs.d
+    update: no
+
+- name: start emacs on login
+  copy:
+    src: emacs.desktop
+    dest: ~/.config/autostart/emacs.desktop

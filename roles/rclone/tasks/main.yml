@@ -1,0 +1,12 @@
+- name: copy install script
+  become: yes
+  copy:
+    src: install.sh
+    dest: /tmp/install.sh
+    mode: 0755
+
+- name: install version 2.7
+  become: yes
+  command: /tmp/install.sh
+  args:
+    creates: /usr/bin/rclone

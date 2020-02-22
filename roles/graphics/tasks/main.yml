@@ -1,0 +1,17 @@
+- name: install gimp
+  become: yes
+  apt:
+    name: gimp
+    state: present
+
+- name: install gphoto2
+  become: yes
+  apt:
+    name: gphoto2
+    state: present
+
+- name: colour picker
+  apt:
+    name: gpick
+    state: present
+  become: yes

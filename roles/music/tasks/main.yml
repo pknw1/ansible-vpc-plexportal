@@ -1,0 +1,22 @@
+- name: add spotify repo key
+  become: yes
+  apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: 931FF8E79F0876134EDDBDCCA87FF9DF48BF1C90
+
+- name: add spotify repo
+  become: yes
+  apt_repository:
+    repo: deb http://repository.spotify.com stable non-free
+    state: present
+
+- name: install spotify
+  become: yes
+  apt:
+    name: spotify-client
+    state: present
+    update_cache: yes
+  register: apt_res
+  retries: 5
+  until: apt_res is success
+

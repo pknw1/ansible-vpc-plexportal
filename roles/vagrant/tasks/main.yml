@@ -1,0 +1,15 @@
+- stat:
+    path: /usr/bin/vagrant
+  register: vagrant
+
+- name: download package
+  get_url:
+    url: https://releases.hashicorp.com/vagrant/2.1.0/vagrant_2.1.0_x86_64.deb
+    dest: /tmp/vagrant_2.1.0_x86_64.deb
+  when: vagrant.stat.exists == False
+
+- name: install
+  become: yes
+  apt:
+    deb: /tmp/vagrant_2.1.0_x86_64.deb
+  when: vagrant.stat.exists == False

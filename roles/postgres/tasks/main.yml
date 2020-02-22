@@ -1,0 +1,8 @@
+- name: install postgres
+  apt:
+    name: "{{ item }}"
+    state: present
+  become: yes
+  with_items:
+    - postgresql
+    - libpq-dev

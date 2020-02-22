@@ -1,0 +1,30 @@
+ubuntu@docker:/etc/systemd/system$ cat rclone-movies.service
+# /etc/systemd/system/rclone.service
+[Unit]
+Description=rclone
+AssertPathIsDirectory=/mnt
+Before=multi-user.target
+Before=shutdown.target
+After=local-fs.target
+After=remote-fs.target
+After=network-online.target
+After=systemd-journald-dev-log.socket
+Wants=network-online.target
+Conflicts=shutdown.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/rclone mount \
+        --config=/root/.config/rclone/rclone.conf \
+        --allow-other \
+        --vfs-read-chunk-size 1M \
+        --vfs-read-chunk-size-limit off \
+        --uid 666 \
+        --gid 666 \
+        --cache-info-age=60m gcp:/pknw1plexdata/movies /mnt/movies
+ExecStop=/bin/fusermount -uz /mnt
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

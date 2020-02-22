@@ -1,0 +1,6 @@
+- stat:
+    path: /usr/bin/slack
+  register: slack
+
+- include: install_slack.yml
+  when: slack.stat.exists == False
