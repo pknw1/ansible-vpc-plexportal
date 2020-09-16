@@ -5,8 +5,8 @@ set -u
 version="${1:-linux}"
 
 if [[ `uname` == 'Linux' ]]; then
-    sudo apt update
-    sudo apt upgrade
+    sudo apt update -y
+    sudo apt upgrade -y
 
     which ansible
 
@@ -14,7 +14,7 @@ if [[ `uname` == 'Linux' ]]; then
         set -e
 
         sudo add-apt-repository ppa:ansible/ansible
-        sudo apt-get update
+        sudo apt-get update --allow-unauthenticated -y 
         sudo apt-get install -y ansible
     fi;
 fi;
