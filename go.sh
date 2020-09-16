@@ -7,6 +7,7 @@ version="${1:-linux}"
 if [[ `uname` == 'Linux' ]]; then
     sudo apt update -y
     sudo apt upgrade -y
+    sudo apt install -y git sudo software-properties-common
 
     which ansible
 
