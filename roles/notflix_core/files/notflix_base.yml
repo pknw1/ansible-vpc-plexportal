@@ -1,0 +1,38 @@
+version: '2'
+
+services:
+  base:
+    image: busybox/busybox:latest
+    restart: unless-stopped
+    dns:
+      - 8.8.8.8
+    networks:
+      - proxy
+    volumes:
+      - /etc/localtime:/etc/localtime
+      - /tmp:/tmp
+    environment:
+      - TZ=Europe/London
+      - PUID=666
+      - PGID=666
+  socket:
+    extends:
+      file: base.yml
+      service: base
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - /etc/ssl:/etc/ssl
+  media:
+    extends:
+      file: base.yml
+      service: base
+    volumes:
+      - /download:/download
+      - /download:/downloads
+      - /content:/content
+      - /:/host:ro
+
+networks:
+  proxy:
+    external:
+      name: proxy
