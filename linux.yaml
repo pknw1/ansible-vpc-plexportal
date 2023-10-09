@@ -11,3 +11,4 @@
     - openjdk
     - rclone-mounts
     - docker
+    - docker_images
