@@ -1,0 +1,22 @@
+- name: pull an image
+  docker_image:
+    name: "{{ item.name }}"
+    source: pull
+  with_items:
+    - { name: "jwilder/nginx-proxy" }
+    - { name: "portainer/portainer-ce:latest" }
+    - { name: "pknw1/plexssov2:latest" }
+
+- name: install cor3
+  become: yes
+  copy:
+    src: notflix_core.yml
+    dest: /home/notflix/core.yml
+    mode: 0755
+
+- name: install core
+  become: yes
+  copy:
+    src: notflix_base.yml
+    dest: /home/notflix/base.yml
+    mode: 0755
