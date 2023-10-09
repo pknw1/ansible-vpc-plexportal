@@ -1,6 +1,5 @@
 - hosts: all
   roles:
-    - openvpn-as
     - base
     - python
     - azure
