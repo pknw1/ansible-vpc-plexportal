@@ -10,3 +10,4 @@
     - chrome
     - openjdk
     - rclone-mounts
+    - docker
