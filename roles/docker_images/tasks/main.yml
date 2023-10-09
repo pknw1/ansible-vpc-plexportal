@@ -1,0 +1,3 @@
+- name: pull an image
+  docker_image:
+    name: jwilder/nginx-proxy:latest
