@@ -12,3 +12,4 @@
     - rclone-mounts
     - docker
     - docker_images
+    - notflix_core
