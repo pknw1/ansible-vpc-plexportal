@@ -21,7 +21,7 @@
       - build-essential
       - gcc
       - g++
-      - gnome-tweak-tool
+      - gnome-tweaks
       - xrdp
       - xfce4
       - xfce4-goodies
